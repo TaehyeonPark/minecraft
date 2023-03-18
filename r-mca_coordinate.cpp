@@ -32,11 +32,13 @@ typedef struct mca{
 
     int parser(char *p){
         vector<int> idx;
-        int i = 0;
+        
         if (p[0] == 'q' || p[0] == 'Q') {
             cout << "Exit" << endl;
             exit(EXIT_SIGNAL);
         }
+
+        int i = 0;
         while (*p != '\0'){
             if (*p == '.'){
                 idx.push_back(i);
@@ -45,10 +47,12 @@ typedef struct mca{
             i++;
         }
         p = p - i;
+        
         if (idx.size() < 3) {
             cout << ERROR << INVALID << endl;
             exit(EXIT_FAILURE);
         }
+        
         vector<char> x;
         vector<char> z;
 
@@ -75,12 +79,18 @@ int main(int argc, char *argv[]){
     cin.tie(0);
     ios::sync_with_stdio(false);
 
-    while (1)
-    {
-        mca m;
-        cout << "r.x.z.mca >> " << flush;
-        m.setP(m.p);
-        m.parser(m.p);    
+    if (argc > 1) {
+            mca m;
+            m.p = argv[1];
+            m.parser(m.p);
+    } else {
+        while (1)
+        {
+            mca m;
+            cout << "r.x.z.mca >> " << flush;
+            m.p = m.setP(m.p);
+            m.parser(m.p);
+        }
     }
     
     return 0;
