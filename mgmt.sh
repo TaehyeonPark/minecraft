@@ -14,7 +14,7 @@ done
 ### Config ###
 JDK="openjdk-18-jdk"
 MINECRAFT_SERVER="https://piston-data.mojang.com/v1/objects/f69c284232d7c7580bd89a5a4931c3581eae1378/server.jar"
-PAPERMC="https://api.papermc.io/v2/projects/paper/versions/1.19.3/builds/397/downloads/paper-1.19.3-397.jar"
+PAPERMC="https://papermc.io/api/v1/paper/1.19.4/latest/download"
 VELOCITY="https://api.papermc.io/v2/projects/velocity/versions/3.2.0-SNAPSHOT/builds/225/downloads/velocity-3.2.0-SNAPSHOT-225.jar"
 PORT=25565
 MINECRAFT_SERVER_SCREEN="minecraft_server"
@@ -82,7 +82,7 @@ setup() {
                 echo "invalid parameter."
                 ;;
         esac
-
+        
 }
 
 setup_all() {
@@ -137,11 +137,11 @@ dir_disk_size() {
 
 backup_server() {
         echo "[$(date +%Y%m%d-%H%M%S)] backuping..."
-        if directory_exist "./backups"; then
-                echo "./backups/ found."
+	if directory_exist "./backups"; then
+		echo "./backups/ found."
         else
-                mkdir "backups"
-        fi
+		mkdir "backups"
+	fi
         tar -cvpzf ./backups/world-$(date +%F-%H-%M).tar.gz ./world/
         echo "[$(date +%Y%m%d-%H%M%S)] backuped."
 }
@@ -181,14 +181,14 @@ start_server() {
 
         echo ">>>> type memsize default(4G, MAX=4G)"
         read mem
-
+        
         if [ -z "${mem}" ] || [ $(expr $mem) -gt 20 ] || [ $(expr $mem) -lt 1 ]; then
                 mem=$default_mem
         fi
-
+        
         echo "$((mem))G will be allocated"
         echo "start minecraft server."
-
+        
         eval "screen -dmS $MINECRAFT_SERVER_SCREEN java -Xms1024M -Xmx${mem}G -jar server.jar nogui"
 }
 

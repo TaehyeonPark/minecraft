@@ -1,0 +1,4 @@
+49 23 * * * /home/minecraft/tools/stop.sh
+50 23 * * * /home/minecraft/tools/backup.sh
+51 23 * * * /home/minecraft/tools/remove.sh
+52 23 * * * /home/minecraft/tools/start.sh
